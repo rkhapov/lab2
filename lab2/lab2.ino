@@ -152,11 +152,6 @@ inline void translateCords(int y, int x, int *screen, int *ry, int *rx) {
   }
 }
 
-
-inline bool inBound(int y, int x) {
-  return y >= 0 && y < fieldRowsCount && x >= 0 && x < fieldColsCount;
-}
-
 int getNeightboursCount(int y, int x) {
   int count = 0;
 
@@ -166,12 +161,10 @@ int getNeightboursCount(int y, int x) {
         continue;
       }
 
-      int yy = y + dy;
-      int xx = x + dx;
+      int yy = (fieldRowsCount + (y + dy)) % fieldRowsCount;
+      int xx = (fieldColsCount + (x + dx)) % fieldColsCount;
 
-      if (inBound(yy, xx)) {
-        count += field[yy][xx];
-      }
+      count += field[yy][xx];
     }
   }
 
